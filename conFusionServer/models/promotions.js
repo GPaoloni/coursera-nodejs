@@ -8,6 +8,7 @@ const promoSchema = new Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
     description: {
       type: String,
@@ -23,9 +24,9 @@ const promoSchema = new Schema(
     },
     price: {
       type: Currency,
+      required: true,
       min: 0,
     },
-    required: true,
     featured: {
       type: Boolean,
       default: false,
