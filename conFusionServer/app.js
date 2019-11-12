@@ -17,7 +17,13 @@ var leaderRouter = require('./routes/leaderRouter');
 const mongoose = require('mongoose');
 
 const url = 'mongodb://localhost:27017/conFusion';
-const connect = mongoose.connect(url);
+const connectionOpts = {
+  useFindAndModify: false,
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+  useCreateIndex: true
+}
+const connect = mongoose.connect(url, connectionOpts);
 
 connect.then( (db) => {
   console.log('Connected OK to the server!')
@@ -32,34 +38,11 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser('super secret private key: 132684723689'));
-app.use(session({
-  name: 'session-id',
-  secret: '12345-67890-09876-54321',
-  saveUninitialized: false,
-  resave: false,
-  store: new FileStore()
-}));
 
 app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-function auth(req, res, next) {
-  console.log(req.session);
-
-  if (!req.user) {
-    const err = new Error('You are not authenticated');
-    err.status = 401;
-    return next(err); 
-  } else {
-    next();
-  }
-};
-
-app.use(auth);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
