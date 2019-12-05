@@ -12,7 +12,7 @@ dishRouter.use(bodyParser.json());
 
 // /dishes router
 dishRouter.route('/')
-.options(cors.corsWithOptions, (req, res => { res.sendStatus(200) }))
+.options(cors.corsWithOptions, ((req, res) => { res.sendStatus(200) }))
 .get(cors.cors, (req, res, next) => {
   Dishes.find({})
   .populate('comments.author')
@@ -49,7 +49,7 @@ dishRouter.route('/')
 
 // /dishes/:dishId router
 dishRouter.route('/:dishId')
-.options(cors.corsWithOptions, (req, res => { res.sendStatus(200) }))
+.options(cors.corsWithOptions, ((req, res) => { res.sendStatus(200) }))
 .get(cors.cors, (req, res, next) => {
   Dishes.findById(req.params.dishId)
   .populate('comments.author')
@@ -87,7 +87,7 @@ dishRouter.route('/:dishId')
 
 // /dishes/:dishId/comments router
 dishRouter.route('/:dishId/comments')
-.options(cors.corsWithOptions, (req, res => { res.sendStatus(200) }))
+.options(cors.corsWithOptions, ((req, res) => { res.sendStatus(200) }))
 .get(cors.cors, (req, res, next) => {
   Dishes.findById(req.params.dishId)
   .populate('comments.author')
@@ -156,7 +156,7 @@ dishRouter.route('/:dishId/comments')
 
 // /dishes/:dishId/comments/:commentId router
 dishRouter.route('/:dishId/comments/:commentId')
-.options(cors.corsWithOptions, (req, res => { res.sendStatus(200) }))
+.options(cors.corsWithOptions, ((req, res) => { res.sendStatus(200) }))
 .get(cors.cors, (req, res, next) => {
   Dishes.findById(req.params.dishId)
   .populate('comments.author')    
